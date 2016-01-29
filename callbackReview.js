@@ -7,7 +7,9 @@ first(names, function(firstName){
   console.log('The first name in names is ', firstName)
 });
 
-
+function first (arr, fn) {
+  fn(arr[0]);
+}
 
 
 /* NEXT PROBLEM - NEXT PROBLEM - NEXT PROBLEM */
@@ -20,7 +22,9 @@ last(names, function(lastName){
   console.log('The last name in names is ', lastName);
 });
 
-
+function last(arr, fn) {
+  fn(arr[arr.length-1]);
+}
 
 
 /* NEXT PROBLEM - NEXT PROBLEM - NEXT PROBLEM */
@@ -38,7 +42,14 @@ contains('Colt', names, function(yes){
 });
 
 
-
+function contains(name,arr,fn) {
+  var flag = false;
+  if (arr.indexOf(name) != -1) {
+    flag = true;
+  }
+  fn(flag);
+  return flag;
+}
 
 /* NEXT PROBLEM - NEXT PROBLEM - NEXT PROBLEM */
 
@@ -51,7 +62,12 @@ map(numbers, function(num){
   return num * 2; //returns an array of [2,4,6,8,10]
 });
 
-
+function map (arr, fn) {
+  for (var i = 0; i < arr.length; i++) {
+    arr[i] = fn(arr[i]);
+  }
+  return arr;
+}
 
 
 /* NEXT PROBLEM - NEXT PROBLEM - NEXT PROBLEM */
@@ -64,7 +80,15 @@ uniq(names, function(uniqArr){
   console.log('The new names array with all the duplicate items removed is ', uniqArr);
 });
 
-
+function uniq (arr, fn) {
+  var newArr = [];
+  for (var i = 0; i < arr.length; i++) {
+    if (newArr.indexOf(arr[i]) === -1) {
+      newArr.push(arr[i]);
+    }
+  }
+  return newArr;
+}
 
 
 /* NEXT PROBLEM - NEXT PROBLEM - NEXT PROBLEM */
@@ -77,7 +101,11 @@ each(names, function(item, indice){
   console.log('The item in the ' + indice + 'position is ' + item)
 });
 
-
+function each(arr, fn) {
+  for (var i = 0; i < arr.length; i++) {
+    fn(arr[i],i);
+  }
+}
 
 
 /* NEXT PROBLEM - NEXT PROBLEM - NEXT PROBLEM */
@@ -106,10 +134,16 @@ var users = [
   },
 ];
 getUserById('16t', users, function(user){
-  console.log('The user with the id 16t has the email of ' + user.email + 'the name of ' + user.name + ' and the address of ' + user.address); 
+  console.log('The user with the id 16t has the email of ' + user.email + 'the name of ' + user.name + ' and the address of ' + user.address);
 });
 
-
+function getUserById(id,arr,fn) {
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i].id === id) {
+      fn(arr[i]);
+    }
+  }
+}
 
 
 /* NEXT PROBLEM - NEXT PROBLEM - NEXT PROBLEM */
@@ -117,8 +151,16 @@ getUserById('16t', users, function(user){
 
 
 
-//Looks through each value in the list, returning the first one that passes a truth test 
+//Looks through each value in the list, returning the first one that passes a truth test
 var numbers  = [1, 2, 3, 4, 5, 6];
-find(numbers, function(num){ 
+find(numbers, function(num){
   return num % 2 == 0; //should return 2
 })
+
+function find(arr, fn) {
+  for (var i = 0; i < arr.length; i++) {
+    if (fn(arr[i])) {
+        return arr[i];
+    }
+  }
+}
